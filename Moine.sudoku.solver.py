@@ -101,8 +101,6 @@ else:
   print("La tabella fornita NON è un sudoku")
 
 
-
-
 # ==========================================
 # 2. CANDIDATI
 # ==========================================
@@ -135,10 +133,8 @@ def candidati(sudoku):
                candidati_ij = candidati_tot - nrico
                griglia2[i][j] = candidati_ij
             
-
                
     return griglia2
-
 
 # ==========================================
 # 3.1 SVOLGIMENTO
@@ -153,6 +149,62 @@ def singoli(sudoku):
                     numero = list(griglia_candidati[i][j])[0]
                     sudoku[i][j]= numero
                     modificato = True
+# applichiamo Hidden Singles, ovvero candidato unico in riga, colonna o quadrato 3x3, diventa int
+# 1. Frequenze Righe
+        for i in range(9):
+            frequenza = {}
+            for j in range(9):
+                cell = griglia_candidati[i][j]
+                if (isinstance( cell, set)):
+                    for num in cell:
+                        frequenza[num] = frequenza.get(num, 0) +1
+            for num, conteggio in frequenza.items():
+                if conteggio == 1:
+                    for j in range(9):
+                        if (isinstance(griglia_candidati[i][j], set) and num in griglia_candidati[i][j]):
+                            sudoku[i][j] = num
+                            modificato= True
+                            break
+                      
+#2. Frequenza Colonne
+                        
+        for j in range(9):
+            frequenza = {}
+            for i in range(9):
+                cell = griglia_candidati[i][j]
+                if (isinstance( cell, set)):
+                    for num in cell:
+                        frequenza[num] = frequenza.get(num, 0) +1
+            for num, conteggio in frequenza.items():
+                if conteggio == 1:
+                    for i in range(9):
+                        if (isinstance(griglia_candidati[i][j], set) and num in griglia_candidati[i][j]):
+                            sudoku[i][j] = num
+                            modificato= True
+                            break
+                        
+#3. Frequenza sotto- quadrati 3x3
+                        
+        for a in range(0,9,3):
+             for b in range(0,9,3):
+                frequenza = {}
+                for i in range(3):
+                    for j in range(3):
+                        cell = griglia_candidati[a+i][b+j]
+                        if (isinstance( cell,set)):
+                            for num in cell:
+                                frequenza[num] = frequenza.get(num, 0) +1
+                for num, conteggio in frequenza.items():
+                        if conteggio ==1:
+                            for c in range(3):
+                                for d in range(3):
+                                    e = a + c
+                                    f = b + d
+                                    if ( isinstance(griglia_candidati[e][f], set ) and num in griglia_candidati[e][f]):
+                                        sudoku[e][f] = num
+                                        modificato= True
+                                        break
+                 
         return  sudoku, modificato       
                     
 def loopsingoli(sudoku):
@@ -160,12 +212,7 @@ def loopsingoli(sudoku):
     while modificato:
          sudoku, modificato = singoli(sudoku)
     return sudoku
-        
-
-
-        
-
-
+    
 
 # ==========================================
 # 3.2 TECNICA DOUBLE-PAIRS
@@ -271,32 +318,4 @@ if validita(tabella):
 
 else:
     print("Il sudoku richiesto non può essere svolto")
-        
-   
-
-         
-            
-    
-    
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
