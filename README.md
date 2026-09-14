@@ -53,5 +53,5 @@ L'algoritmo è stato ampiamente testato sui livelli ufficiali del sito **Sudoku.
 
 ### **1. CLONA IL REPOSITORY**
 ```bash
-git clone [https://github.com/tuo-username/sudoku-solver-python.git](https://github.com/tuo-username/sudoku-solver-python.git)
+git clone https://github.com/tuo-username/sudoku-solver-python.git
 cd sudoku-solver-python
