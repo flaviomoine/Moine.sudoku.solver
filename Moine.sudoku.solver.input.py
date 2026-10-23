@@ -37,59 +37,18 @@ def validita(sudoku):
                          return False
                      visti2.add(valore)                            
 #controllo quadrato 3x3
-    q1, q2, q3 = set(), set(), set()
-    q4, q5, q6 = set(), set(), set()
-    q7, q8, q9 = set(), set(), set() 
-
-    for i in range (9):
-        for j in range(9):
-            valore= sudoku [i][j]
-            if valore == 0:
-             continue
-            
-#controlli primi 3 quadrati vert
-            if 0 <= i <= 2:
-                if 0 <= j <= 2:
-                    if valore in q1:
-                        return False
-                    q1.add(valore)
-                elif 3<= j <= 5:
-                   if valore in q2:
-                        return False
-                   q2.add(valore)
-                elif 6<= j <= 8:
-                    if valore in q3:
-                        return False
-                    q3.add(valore)
-#controllo secondi 3 quadrati vert 
-            elif 3 <= i <=5 :
-                if 0 <= j <= 2:
-                    if valore in q4:
-                        return False
-                    q4.add(valore)
-                elif 3<= j <= 5:
-                   if valore in q5:
-                        return False
-                   q5.add(valore)
-                elif 6<= j <= 8:
-                    if valore in q6:
-                        return False
-                    q6.add(valore)
-#controllo terzi 3 quadrati vert 
-            elif 6 <= i <= 8:
-                if 0 <= j <= 2:
-                    if valore in q7:
-                        return False
-                    q7.add(valore)
-                elif 3<= j <= 5:
-                    if valore in q8:
-                        return False
-                    q8.add(valore)
-                elif 6 <= j <= 8:
-                      if valore in q9:
-                        return False
-                      q9.add(valore)
-
+    for a in range(0,9,3):
+      for b in range (0,9,3):
+         vistiquad = set()
+         for i in range (3):
+              for j in range(3):
+                 valore = sudoku[a+i][b+j]
+                 if valore != 0:
+                     if valore in vistiquad:
+                         print("Il valore è già presente")
+                         return False
+                     vistiquad.add(valore)
+               
 
     return True
 
